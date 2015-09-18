@@ -1,2 +1,2 @@
-# franks_hat
+# Frank's Hat
 Playing around with Sinatra
