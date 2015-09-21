@@ -7,8 +7,6 @@ require_relative 'helpers/view_helper'
 
 configure { Sinatra::Logentries.token = ENV['LOGENTRIES_TOKEN'] }
 
-logger.info("I'm a Lumberjack and I'm OK")
-
 get '/' do
   twitter = TwitterIntegration.new
   user = ENV['TWITTER_USERNAME']
