@@ -1,5 +1,15 @@
 module ViewHelper
   class << self
+    def parse(tweet)
+      user_mentions = collect_user_mentions(tweet)
+      hashtags = collect_hashtags(tweet)
+      urls = collect_short_urls(tweet)
+      tweet_text = hashtags.count != 0 ? generate_link(hashtags, tweet.text.dup) : tweet.text.dup
+      tweet_text = user_mentions.count != 0 ? generate_link(user_mentions, tweet_text) : tweet_text
+      urls.count != 0 ? generate_link(urls, tweet_text) : tweet_text
+      # TODO check Twitter picture links (using http.//t.co/xyz)
+    end
+
     def collect_hashtags(tweet)
       tweet.hashtags.collect { |key| "##{key.text}" }
     end
@@ -36,6 +46,5 @@ module ViewHelper
       format = '%d.%m.%Y, %H:%M Uhr'
       datetime.to_datetime.strftime(format)
     end
-
   end
 end

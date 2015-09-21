@@ -21,22 +21,13 @@
   <table cellpadding="0" cellspacing="0">
     <tbody>
     <% tweets.each do |tweet| %>
-        <% user_mentions = helper.collect_user_mentions(tweet) %>
-        <% hashtags = helper.collect_hashtags(tweet) %>
-        <% urls = helper.collect_short_urls(tweet) %>
-        <% tweet_text = hashtags.count != 0 ? helper.generate_link(hashtags, tweet.text.dup) : tweet.text.dup %>
-        <% tweet_text = user_mentions.count != 0 ? helper.generate_link(user_mentions, tweet_text) : tweet_text %>
         <tr>
           <td></td>
           <td class="date">
             <%= helper.format(tweet.created_at) %>
           </td>
           <td class="tweet">
-            <% if urls.nil? %>
-                <%= tweet_text %>
-            <% else %>
-                <%= helper.generate_link(urls, tweet_text) %>
-            <% end %>
+            <%= helper.parse(tweet) %>
           </td>
           <td></td>
         </tr>
