@@ -2,7 +2,7 @@ body {
     font-family: "calluna-sans",sans-serif;
     font-style: normal;
     font-weight: 300;
-    font-size: 13px;
+    font-size: 14px;
     color: saddlebrown;
     background-color: beige;
     background-repeat: no-repeat;
@@ -24,15 +24,6 @@ h1 {
     background-size:  cover;
     background-repeat: no-repeat;
     background-position: center center;
-}
-
-#main {
-    margin-top: 30px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center;
-    width: 100%;
-    height: 65px;
 }
 
 a:link {
@@ -98,13 +89,27 @@ a:active {
     width: 590px;
 }
 
-#more {
+#footer {
     font-family: "Helvetica", "Verdana", sans-serif;
+    margin-top: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    width: 100%;
+    height: 65px;
+}
+
+#more {
     padding-bottom: 20px;
     border-bottom: 1px solid #d2b092;
 }
 
 #copyright {
-    font-family: "Helvetica", "Verdana", sans-serif;
-    padding-top: 5px;
+    padding-top: 20px;
+    padding-bottom:20px;
+}
+
+#jump-to-top {
+    position: absolute;
+    right: 20px;
 }
