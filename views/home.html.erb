@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head profile="http://gmpg.org/xfn/11">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <meta name="description" content="Die privaten Seiten von Ronny Kraemer"/>
+  <meta name="keywords" content="YAIW,avenging-angel,ave,webdesign,homepage,linux,wallpaper,pictures,downloads"/>
+  <link href="wordpress/wp-content/themes/ave/avicon.png" rel="shortcut icon" type="image/png"/>
+  <link rel="stylesheet" href="css/base.css"/>
+  <title>avenging-angel.de</title>
+</head>
+<body>
+<div id="header"></div>
+<div id="social" style="float:none">
+  <span><a href="http://twitter.com/spaceneedle2019" title="Twitter"><img alt="twitter" src="images/twitter.png"/></a></span>
+  <span><a href="http://www.lastfm.de/user/spaceneedle2019" title="Last.fm"><img alt="last.fm" src="images/lastfm.png"/></a></span>
+  <span><a href="http://instagram.com/spaceneedle2019" title="Instagram"><img alt="instagram" src="images/instagram.png"/></a></span>
+  <span><a href="http://spaceneedle2019.tumblr.com" title="tumblr"><img alt="tumblr" src="images/tumblr.png"/></a></span>
+  <span><a href="http://spaceneedle2019.deviantart.com" title="deviantART"><img alt="deviantart" src="images/deviantart.png"/></a></span>
+</div>
+<div id="microblog">
+  <table cellpadding="0" cellspacing="0">
+    <tbody>
+    <% tweets.each do |tweet| %>
+        <% user_mentions = helper.collect_user_mentions(tweet) %>
+        <% hashtags = helper.collect_hashtags(tweet) %>
+        <% urls = helper.collect_short_urls(tweet) %>
+        <% tweet_text = hashtags.count != 0 ? helper.generate_link(hashtags, tweet.text.dup) : tweet.text.dup %>
+        <% tweet_text = user_mentions.count != 0 ? helper.generate_link(user_mentions, tweet_text) : tweet_text %>
+        <tr>
+          <td></td>
+          <td class="date">
+            <%= helper.format(tweet.created_at) %>
+          </td>
+          <td class="tweet">
+            <% if urls.nil? %>
+                <%= tweet_text %>
+            <% else %>
+                <%= helper.generate_link(urls, tweet_text) %>
+            <% end %>
+          </td>
+          <td></td>
+        </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
+<div id="main">
+  <div id="more">
+    <span>Are you <a href="http://about.rk82.net">serious</a>?</span>
+  </div>
+  <div id="copyright">
+    &copy; 2000&mdash;2015, Ronny Krämer. Alle Rechte vorbehalten.
+  </div>
+</div>
+</body>
+</html>
