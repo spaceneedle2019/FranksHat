@@ -1,7 +1,8 @@
 body {
-    font-family: "fira-sans-2", sans-serif;
+    font-family: "calluna-sans",sans-serif;
+    font-style: normal;
+    font-weight: 300;
     font-size: 13px;
-    text-shadow: 1px 1px 2px #ddd;
     color: saddlebrown;
     background-color: beige;
     background-repeat: no-repeat;
@@ -69,14 +70,12 @@ a:active {
 
 #microblog {
     width: 100%;
-    font-size: 24px;
-    font-weight: lighter;
-    font-style: normal;
+    font-size: 20px;
     line-height: 1.1;
 }
 
 #microblog table {
-    margin-top: 60px;
+    margin-top: 70px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -84,7 +83,7 @@ a:active {
 
 #microblog table tr td {
     padding: 20px;
-    border-top: 1px solid #d2b092;
+    border-top: 1px dashed #d2b092;
 }
 
 #microblog table tr td.date {
