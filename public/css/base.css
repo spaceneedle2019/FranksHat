@@ -1,7 +1,7 @@
 body {
-    font-family: "Fira Sans", sans-serif;
+    font-family: "Helvetica", sans-serif;
     font-size: 13px;
-    font-variant-ligatures: common-ligatures;
+    font-variant-ligatures: historical-ligatures;
     text-shadow: 1px 1px 2px #ddd;
     color: saddlebrown;
     background-color: beige;
