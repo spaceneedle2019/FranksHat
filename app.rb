@@ -1,5 +1,6 @@
 require 'sinatra'
 require 'twitter'
+require 'tzinfo'
 require_relative 'lib/twitter_integration'
 require_relative 'helpers/view_helper'
 

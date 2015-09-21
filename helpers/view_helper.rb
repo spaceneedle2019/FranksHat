@@ -42,9 +42,10 @@ module ViewHelper
       return tweet_text
     end
 
-    def format(datetime)
+    def format(timestamp)
       format = '%d.%m.%Y, %H:%M Uhr'
-      datetime.to_datetime.strftime(format)
+      timezone = TZInfo::Timezone.get('Europe/Berlin')
+      timezone.utc_to_local(timestamp.to_datetime).strftime(format)
     end
   end
 end
