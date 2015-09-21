@@ -19,6 +19,7 @@ GEM
     http_parser.rb (0.6.0)
     json (1.8.3)
     kgio (2.9.2)
+    le (2.6.2)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
     multipart-post (2.0.0)
@@ -32,6 +33,8 @@ GEM
       rack (~> 1.4)
       rack-protection (~> 1.4)
       tilt (>= 1.3, < 3)
+    sinatra-logentries (0.0.2)
+      le (>= 2.1.6)
     thread_safe (0.3.5)
     tilt (2.0.1)
     twitter (5.15.0)
@@ -60,6 +63,7 @@ PLATFORMS
 
 DEPENDENCIES
   sinatra
+  sinatra-logentries
   twitter
   tzinfo
   unicorn
