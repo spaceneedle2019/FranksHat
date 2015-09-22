@@ -80,13 +80,13 @@ a:active {
 #microblog table tr td.date {
     font-style: normal;
     font-size: 17px;
-    width: 200px;
+    width: 170px;
     vertical-align: top;
     line-height: 1.2;
 }
 
 #microblog table tr td.tweet {
-    width: 590px;
+    width: 600px;
 }
 
 #footer {
