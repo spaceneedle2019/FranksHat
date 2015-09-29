@@ -5,13 +5,14 @@ module ViewHelper
       hashtags = collect_hashtags(tweet)
       urls = collect_short_urls(tweet)
       tweet_text = hashtags.count != 0 ? generate_link(hashtags, tweet.text.dup) : tweet.text.dup
-      tweet_text = user_mentions.count != 0 ? generate_link(user_mentions, tweet_text) : tweet_text
-      urls.count != 0 ? generate_link(urls, tweet_text) : tweet_text
-      # TODO check Twitter picture links (using http.//t.co/xyz)
+      generate_link(user_mentions, tweet_text) unless user_mentions.count == 0
+      generate_link(urls, tweet_text) unless urls.count == 0
+      remove_fb_hashtag_from(tweet_text) if tweet_text.include?('#fb')
+      return tweet_text
     end
 
     def collect_hashtags(tweet)
-      tweet.hashtags.collect { |key| "##{key.text}" }
+      tweet.hashtags.collect { |key| "##{key.text}" unless key.text == 'fb' }.compact
     end
 
     def collect_short_urls(tweet)
@@ -20,6 +21,10 @@ module ViewHelper
 
     def collect_user_mentions(tweet)
       tweet.user_mentions.collect { |user_mention| "@#{user_mention.screen_name}" } if tweet.user_mentions.respond_to?(:each)
+    end
+
+    def remove_fb_hashtag_from(tweet_text)
+      tweet_text.gsub!(/#fb/, '').strip
     end
 
     def generate_link(entities, tweet_text)
