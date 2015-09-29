@@ -4,7 +4,8 @@ module ViewHelper
       user_mentions = collect_user_mentions(tweet)
       hashtags = collect_hashtags(tweet)
       urls = collect_short_urls(tweet)
-      tweet_text = hashtags.count != 0 ? generate_link(hashtags, tweet.text.dup) : tweet.text.dup
+      tweet_text = tweet.text.dup
+      generate_link(hashtags, tweet_text) unless hashtags.count == 0
       generate_link(user_mentions, tweet_text) unless user_mentions.count == 0
       generate_link(urls, tweet_text) unless urls.count == 0
       remove_fb_hashtag_from(tweet_text) if tweet_text.include?('#fb')
