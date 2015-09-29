@@ -8,8 +8,7 @@ module ViewHelper
       generate_link(hashtags, tweet_text) unless hashtags.count == 0
       generate_link(user_mentions, tweet_text) unless user_mentions.count == 0
       generate_link(urls, tweet_text) unless urls.count == 0
-      remove_fb_hashtag_from(tweet_text) if tweet_text.include?('#fb')
-      return tweet_text
+      remove_fb_hashtag_from(tweet_text)
     end
 
     def collect_hashtags(tweet)
@@ -25,7 +24,7 @@ module ViewHelper
     end
 
     def remove_fb_hashtag_from(tweet_text)
-      tweet_text.gsub!(/#fb/, '').strip
+      tweet_text.include?('#fb') ? tweet_text.gsub!(/#fb/, '').strip : tweet_text
     end
 
     def generate_link(entities, tweet_text)
