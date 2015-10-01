@@ -31,7 +31,7 @@ module ViewHelper
     end
 
     def generate_link_for_unmatched_urls(tweet_text)
-      tweet_text.match(URL_REGEX) ? tweet_text.gsub!(URL_REGEX) { |m| "<a href='#{m}'>#{m}</a>" } : tweet_text
+      tweet_text.match(URL_REGEX) ? tweet_text.gsub!(URL_REGEX) { |m| " <a href='#{m.lstrip}'>#{m.lstrip}</a>" } : tweet_text
     end
 
     def generate_link(entities, tweet_text)
