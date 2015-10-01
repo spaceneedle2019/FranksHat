@@ -1,5 +1,7 @@
 module ViewHelper
   class << self
+    URL_REGEX = /\s((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/
+
     def parse(tweet)
       user_mentions = collect_user_mentions(tweet)
       hashtags = collect_hashtags(tweet)
@@ -8,6 +10,7 @@ module ViewHelper
       generate_link(hashtags, tweet_text) unless hashtags.count == 0
       generate_link(user_mentions, tweet_text) unless user_mentions.count == 0
       generate_link(urls, tweet_text) unless urls.count == 0
+      generate_link_for_unmatched_urls(tweet_text, urls)
       remove_fb_hashtag_from(tweet_text)
     end
 
@@ -25,6 +28,10 @@ module ViewHelper
 
     def remove_fb_hashtag_from(tweet_text)
       tweet_text.include?('#fb') ? tweet_text.gsub!(/#fb/, '').strip : tweet_text
+    end
+
+    def generate_link_for_unmatched_urls(tweet_text, urls)
+      tweet_text.match(URL_REGEX) ? tweet_text.gsub!(URL_REGEX) { |m| "<a href='#{m}'>#{m}</a>" } : tweet_text
     end
 
     def generate_link(entities, tweet_text)
