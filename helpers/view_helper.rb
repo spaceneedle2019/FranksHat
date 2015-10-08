@@ -1,6 +1,6 @@
 module ViewHelper
   class << self
-    URL_REGEX = /\s((https?:\/\/)?[\w-]+(\.[\w-]+)+\.?(:\d+)?(\/\S*)?)/
+    URL_REGEX = /\s((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?)/
 
     def parse(tweet)
       user_mentions = collect_user_mentions(tweet)
