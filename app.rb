@@ -6,11 +6,19 @@ require_relative 'lib/twitter_integration'
 require_relative 'helpers/view_helper'
 
 configure { Sinatra::Logentries.token = ENV['LOGENTRIES_TOKEN'] }
+DEFAULT_LAYOUT = :'layouts/default.html'
 
 get '/' do
-  twitter = TwitterIntegration.new
-  user = ENV['TWITTER_USERNAME']
+  twitter = TwitterIntegration.new; user = ENV['TWITTER_USERNAME']
   options = {:count => 100, :include_rts => true, :exclude_replies => true}
 
-  erb :'home.html', :locals => {:tweets => twitter.client.user_timeline(user, options), :helper => ViewHelper}
+  erb :'home.html', :layout => DEFAULT_LAYOUT, :locals => {:tweets => twitter.client.user_timeline(user, options), :helper => ViewHelper}
+end
+
+get '/:things' do
+  erb :'not_found.html', :layout => DEFAULT_LAYOUT, :locals => {:things => params[:things]}
+end
+
+not_found do
+  erb :'not_found.html', :layout => DEFAULT_LAYOUT
 end
