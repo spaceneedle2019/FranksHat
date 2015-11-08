@@ -10,8 +10,8 @@ DEFAULT_LAYOUT = :'layouts/default.html'
 
 get '/' do
   twitter = TwitterIntegration.new; user = ENV['TWITTER_USERNAME']
-  options = {:count => 100, :include_rts => true, :exclude_replies => true}
-
+  options = {:count => 100, :include_rts => false, :exclude_replies => true}
+  
   erb :'home.html', :layout => DEFAULT_LAYOUT, :locals => {:tweets => twitter.client.user_timeline(user, options), :helper => ViewHelper}
 end
 
