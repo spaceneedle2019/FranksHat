@@ -3,13 +3,13 @@ require 'twitter'
 require 'tzinfo'
 require 'sinatra-logentries'
 require 'tilt/erb'
-require 'dotenv'
+require 'dotenv' if Sinatra::Base.development?
 require_relative 'lib/twitter_integration'
 require_relative 'lib/instagram_integration'
 require_relative 'helpers/view_helper'
 require_relative 'helpers/application_helper'
 
-Dotenv.load('.env')
+Dotenv.load('.env') if Sinatra::Base.development?
 configure { Sinatra::Logentries.token = ENV['LOGENTRIES_TOKEN'] }
 DEFAULT_LAYOUT = :'layouts/default.html'
 
