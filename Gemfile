@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.2'
 gem 'sinatra'
+gem 'sinatra-logentries'
 gem 'twitter'
 gem 'tzinfo'
 gem 'unicorn'
-gem 'sinatra-logentries'
