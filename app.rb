@@ -21,7 +21,7 @@ get '/' do
           twitter.client.user_timeline(twitter.user_name, twitter.options),
           instagram.media
       )
-  ApplicationHelper.remove_instagram_duplicates_from(timeline)
+  ApplicationHelper.remove_instagram_duplicates!(timeline)
   erb :'home.html', :layout => DEFAULT_LAYOUT, :locals => {:timeline => timeline, :helper => ViewHelper}
 end
 
