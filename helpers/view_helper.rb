@@ -1,6 +1,30 @@
 module ViewHelper
   class << self
     URL_REGEX = /\s((https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w\.-]*)*\/?)/
+    HASHMARK = '#'
+    AT_SIGN = '@'
+    POINT = '.'
+    COMMA = ','
+
+    def parse_insta_for_hashtags(text)
+      text_array = text.split(' ')
+      text_array.map! do |word|
+        if word.include?(HASHMARK)
+          if word.end_with?(POINT)
+            word.delete!(POINT)
+            "#{instagram_url_for(word)}#{POINT}"
+          elsif word.end_with?(COMMA)
+            word.delete!(COMMA)
+            "#{instagram_url_for(word)}#{COMMA}"
+          else
+            instagram_url_for(word)
+          end
+        else
+          word
+        end
+      end
+      text_array.join(' ')
+    end
 
     def parse(tweet)
       user_mentions = collect_user_mentions(tweet)
@@ -14,8 +38,15 @@ module ViewHelper
       remove_fb_hashtag_from(tweet_text)
     end
 
+    def format(datetime)
+      format = '%d.%m.%Y, %H:%M Uhr'
+      datetime.strftime(format)
+    end
+
+    private
+
     def collect_hashtags(tweet)
-      tweet.hashtags.collect { |key| "##{key.text}" unless key.text == 'fb' }.compact
+      tweet.hashtags.collect { |key| "#{HASHMARK}#{key.text}" unless key.text == 'fb' }.compact
     end
 
     def collect_short_urls(tweet)
@@ -23,7 +54,7 @@ module ViewHelper
     end
 
     def collect_user_mentions(tweet)
-      tweet.user_mentions.collect { |user_mention| "@#{user_mention.screen_name}" } if tweet.user_mentions.respond_to?(:each)
+      tweet.user_mentions.collect { |user_mention| "#{AT_SIGN}#{user_mention.screen_name}" } if tweet.user_mentions.respond_to?(:each)
     end
 
     def remove_fb_hashtag_from(tweet_text)
@@ -41,10 +72,10 @@ module ViewHelper
             if entity[0].is_a?(Addressable::URI)
               "<a href='#{entity[0]}'>http://#{entity[1]}</a>"
             else
-              if entity.start_with?('@')
-                "<a href='https://twitter.com/#{entity.delete('@')}'>#{entity}</a>"
+              if entity.start_with?(AT_SIGN)
+                "<a href='https://twitter.com/#{entity.delete(AT_SIGN)}'>#{entity}</a>"
               else
-                "<a href='https://twitter.com/hashtag/#{entity.delete('#')}'>#{entity}</a>"
+                "<a href='https://twitter.com/hashtag/#{entity.delete(HASHMARK)}'>#{entity}</a>"
               end
             end
       end
@@ -54,10 +85,8 @@ module ViewHelper
       return tweet_text
     end
 
-    def format(timestamp)
-      format = '%d.%m.%Y, %H:%M Uhr'
-      timezone = TZInfo::Timezone.get('Europe/Berlin')
-      timezone.utc_to_local(timestamp.to_datetime).strftime(format)
+    def instagram_url_for(tag)
+      "<a href='https://www.instagram.com/explore/tags/#{tag.delete(HASHMARK)}/'>#{tag}</a>"
     end
   end
 end

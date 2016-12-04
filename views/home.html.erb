@@ -1,16 +1,21 @@
 <div id="microblog">
   <table cellpadding="0" cellspacing="0">
     <tbody>
-    <% tweets.each do |tweet| %>
+    <% timeline.each do |timestamp, entry| %>
         <tr>
-          <td></td>
+          <td>&nbsp;</td>
           <td class="date">
-            <%= helper.format(tweet.created_at) %>
+            <%= helper.format(timestamp) %>
           </td>
-          <td class="tweet">
-            <%= helper.parse(tweet) %>
+          <td class="entry">
+            <% if entry.is_a?(Twitter::Tweet)%>
+                <%= helper.parse(entry) %>
+            <% else %>
+                <%= entry.image_link %>
+                <%= helper.parse_insta_for_hashtags(entry.text) %>
+            <% end %>
           </td>
-          <td></td>
+          <td>&nbsp;</td>
         </tr>
     <% end %>
     </tbody>
