@@ -1,5 +1,5 @@
 class TwitterIntegration
-  attr_accessor :client, :user_name, :options
+  attr_reader :client, :user_name, :options
 
   def initialize
     @client = authenticate

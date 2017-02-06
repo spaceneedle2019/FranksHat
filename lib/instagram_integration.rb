@@ -2,12 +2,6 @@ require 'net/http'
 require 'uri'
 
 class InstagramIntegration
-  attr_accessor :user_name
-
-  def initialize
-    @user_name = set_user_name
-  end
-
   def media
     media = []
     media_object = get_media_object
@@ -34,7 +28,7 @@ class InstagramIntegration
     end
   end
 
-  def set_user_name
+  def user_name
     ENV['INSTAGRAM_USERNAME']
   end
 
