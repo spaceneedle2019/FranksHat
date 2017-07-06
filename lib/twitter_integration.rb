@@ -1,10 +1,16 @@
 class TwitterIntegration
-  attr_reader :client, :user_name, :options
+  attr_reader :client
 
   def initialize
     @client = authenticate
-    @user_name = set_user_name
-    @options = set_options
+  end
+
+  def user_name
+    ENV['TWITTER_USERNAME']
+  end
+
+  def options
+    {:count => 100, :include_rts => false, :exclude_replies => true}
   end
 
   private
@@ -16,13 +22,5 @@ class TwitterIntegration
       config.access_token = ENV['TWITTER_ACCESS_TOKEN']
       config.access_token_secret = ENV['TWITTER_ACCESS_TOKEN_SECRET']
     end
-  end
-
-  def set_user_name
-    ENV['TWITTER_USERNAME']
-  end
-
-  def set_options
-    {:count => 100, :include_rts => false, :exclude_replies => true}
   end
 end
