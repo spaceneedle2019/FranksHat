@@ -11,13 +11,11 @@ require_relative 'lib/instagram_integration'
 configure { Sinatra::Logentries.token = ENV['LOGENTRIES_TOKEN'] }
 
 class App < Sinatra::Base
+  DEFAULT_LAYOUT = :'layouts/default.html'.freeze
+
   if App.development?
     require 'dotenv'
     Dotenv.load('.env')
-  end
-
-  before do
-    DEFAULT_LAYOUT = :'layouts/default.html'.freeze
   end
 
   get '/' do
