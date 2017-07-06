@@ -84,7 +84,6 @@ a:active {
 
 #microblog table tr td {
     padding: 20px;
-    border-top: 1px dashed #d2b092;
 }
 
 #microblog table tr td.date {
@@ -93,10 +92,12 @@ a:active {
     width: 170px;
     vertical-align: top;
     line-height: 1.2;
+    border-bottom: 1px solid #d2b092;
 }
 
 #microblog table tr td.entry {
     width: 600px;
+    border-bottom: 1px solid #d2b092;
 }
 
 #microblog table tr td.entry img {
