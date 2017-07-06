@@ -4,7 +4,7 @@ require 'uri'
 class InstagramIntegration
   def media
     media = []
-    media_object = get_media_object
+    media_object = populate_media_object
     media_object.items.each do |item|
       code = item.code
       image_url = item.images.low_resolution.url
@@ -20,7 +20,7 @@ class InstagramIntegration
 
   private
 
-  def get_media_object
+  def populate_media_object
     response = Net::HTTP.get_response(url)
     if response.code.to_i == 200
       json = JSON.parse(response.body, object_class: OpenStruct)
