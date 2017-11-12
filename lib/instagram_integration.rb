@@ -3,29 +3,20 @@ require 'uri'
 
 class InstagramIntegration
   def media
-    media = []
-    media_object = populate_media_object
-    media_object.items.each do |item|
+    media_object.nodes.map do |item|
       code = item.code
-      image_url = item.images.low_resolution.url
-      image_link = "<a href='https://www.instagram.com/p/#{code}/'><img alt='#{code}'src='#{image_url}'></a>"
-      media << OpenStruct.new(
-          :created_at => DateTime.strptime(item.caption.created_time, '%s'),
-          :text => item.caption.text,
-          :image_link => image_link
-      )
+      source = item.thumbnail_resources[2].src
+      created_at = DateTime.strptime(item.date.to_s, '%s')
+      image_link = "<a href='https://www.instagram.com/p/#{code}/'><img alt='#{code}'src='#{source}'></a>"
+      OpenStruct.new(:created_at => created_at, :text => item.caption, :image_link => image_link)
     end
-    media
   end
 
   private
 
-  def populate_media_object
+  def media_object
     response = Net::HTTP.get_response(url)
-    if response.code.to_i == 200
-      json = JSON.parse(response.body, object_class: OpenStruct)
-      json if json.status == 'ok'
-    end
+    JSON.parse(response.body, object_class: OpenStruct).user.media if response.code.to_i == 200
   end
 
   def user_name
@@ -33,7 +24,7 @@ class InstagramIntegration
   end
 
   def url
-    URI.parse("https://www.instagram.com/#{user_name}/media/")
+    URI.parse("https://www.instagram.com/#{user_name}/?__a=1")
   end
 
 end
