@@ -5,14 +5,14 @@
         <tr>
           <td>&nbsp;</td>
           <td class="date">
-            <%= helper.format(timestamp) %>
+            <%= base.format(timestamp) %>
           </td>
           <td class="entry">
             <% if entry.is_a?(Twitter::Tweet)%>
-                <%= helper.parse(entry) %>
+                <%= twitter.parse(entry) %>
             <% else %>
                 <%= entry.image_link %>
-                <%= helper.parse_insta_for_hashtags(entry.text) %>
+                <%= instagram.parse(entry.text) %>
             <% end %>
           </td>
           <td>&nbsp;</td>
