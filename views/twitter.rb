@@ -1,5 +1,3 @@
-require_relative '../views/base'
-
 module Views
   module Twitter
     class << self
