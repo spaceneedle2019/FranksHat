@@ -40,13 +40,9 @@ module Views
             entities.each_with_object({}) do |entity, hash|
               hash[entity] =
                   if entity[0].is_a?(Addressable::URI)
-                    "<a href='#{entity[0]}'>http://#{entity[1]}</a>"
+                    external_url_for(entity)
                   else
-                    if entity.start_with?(Views::AT_SIGN)
-                      "<a href='https://twitter.com/#{entity.delete(Views::AT_SIGN)}'>#{entity}</a>"
-                    else
-                      "<a href='https://twitter.com/hashtag/#{entity.delete(Views::HASHMARK)}'>#{entity}</a>"
-                    end
+                    entity.start_with?(Views::AT_SIGN) ? account_url_for(entity) : hashtag_url_for(entity)
                   end
             end
         search_and_replace!(hash, tweet_text)
@@ -61,6 +57,18 @@ module Views
             tweet_text.sub!(key, value) || tweet_text.sub!(key.downcase, value)
           end
         end
+      end
+
+      def account_url_for(entity)
+        "<a href='https://twitter.com/#{entity.delete(Views::AT_SIGN)}'>#{entity}</a>"
+      end
+
+      def hashtag_url_for(entity)
+        "<a href='https://twitter.com/hashtag/#{entity.delete(Views::HASHMARK)}'>#{entity}</a>"
+      end
+
+      def external_url_for(entity)
+        "<a href='#{entity[0]}'>http://#{entity[1]}</a>"
       end
     end
   end
