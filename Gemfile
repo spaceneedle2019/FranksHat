@@ -1,10 +1,10 @@
 source 'http://rubygems.org'
-ruby '2.1.2'
+ruby '2.5.0'
 gem 'sinatra'
 gem 'sinatra-logentries'
 gem 'twitter'
 gem 'tzinfo'
-gem 'unicorn'
+gem 'puma'
 
 group :development do
   gem 'dotenv'
