@@ -4,13 +4,9 @@ module Views
       def parse(message)
         message_array = message.split(' ')
         message_array.map! do |word|
-          if word.include?(Views::HASHMARK)
-            populate_tag_url(word)
-          elsif word.start_with?(Views::AT_SIGN)
-            "<a href='https://www.instagram.com/#{word.delete(Views::AT_SIGN)}'>#{word}</a>"
-          else
-            word
-          end
+          next populate_tag_url(word) if word.include?(Views::HASHMARK)
+          next account_url_for(word) if word.start_with?(Views::AT_SIGN)
+          word
         end
         message_array.join(' ')
       end
@@ -18,17 +14,17 @@ module Views
       private
 
       def populate_tag_url(word)
-        if word.end_with?(Views::POINT)
-          "#{url_for(word.delete(Views::POINT))}#{Views::POINT}"
-        elsif word.end_with?(Views::COMMA)
-          "#{url_for(word.delete(Views::COMMA))}#{Views::COMMA}"
-        else
-          url_for(word)
-        end
+        return "#{tag_url_for(word.delete(Views::POINT))}#{Views::POINT}" if word.end_with?(Views::POINT)
+        return "#{tag_url_for(word.delete(Views::COMMA))}#{Views::COMMA}" if word.end_with?(Views::COMMA)
+        tag_url_for(word)
       end
 
-      def url_for(tag)
-        "<a href='https://www.instagram.com/explore/tags/#{tag.delete(Views::HASHMARK)}/'>#{tag}</a>"
+      def tag_url_for(word)
+        "<a href='https://www.instagram.com/explore/tags/#{word.delete(Views::HASHMARK)}/'>#{word}</a>"
+      end
+
+      def account_url_for(word)
+        "<a href='https://www.instagram.com/#{word.delete(Views::AT_SIGN)}'>#{word}</a>"
       end
     end
   end
