@@ -3,6 +3,8 @@ require 'uri'
 require 'nokogiri'
 
 class InstagramIntegration
+  BASE_URL = 'https://www.instagram.com'.freeze
+
   def media
     entry_point(response_object).map do |edge|
       item = edge.node
@@ -17,7 +19,7 @@ class InstagramIntegration
   private
 
   def response_object
-    response = Net::HTTP.get_response(url)
+    response = Net::HTTP.get_response(profile_url)
     if response.code.to_i == 200
       page = Nokogiri::HTML(response.body)
       data_string = page.css('body script')[0].text.gsub('window._sharedData = ', '').chop
@@ -29,11 +31,11 @@ class InstagramIntegration
     data.entry_data['ProfilePage'][0].graphql.user.edge_owner_to_timeline_media.edges
   end
 
-  def url
-    URI.parse("https://www.instagram.com/#{ENV['INSTAGRAM_USERNAME']}/")
+  def profile_url
+    URI.parse("#{BASE_URL}/#{ENV['INSTAGRAM_USERNAME']}/")
   end
 
   def image_link(code, source)
-    "<a href='https://www.instagram.com/p/#{code}/'><img alt='#{code}'src='#{source}'></a>"
+    "<a href='#{BASE_URL}/p/#{code}/'><img alt='#{code}'src='#{source}'></a>"
   end
 end

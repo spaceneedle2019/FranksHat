@@ -20,11 +20,11 @@ module Views
       end
 
       def tag_url_for(word)
-        "<a href='https://www.instagram.com/explore/tags/#{word.delete(Views::HASHMARK)}/'>#{word}</a>"
+        "<a href='#{InstagramIntegration::BASE_URL}/explore/tags/#{word.delete(Views::HASHMARK)}/'>#{word}</a>"
       end
 
       def account_url_for(word)
-        "<a href='https://www.instagram.com/#{word.delete(Views::AT_SIGN)}'>#{word}</a>"
+        "<a href='#{InstagramIntegration::BASE_URL}/#{word.delete(Views::AT_SIGN)}'>#{word}</a>"
       end
     end
   end
