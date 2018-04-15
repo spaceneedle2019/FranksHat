@@ -1,5 +1,7 @@
 module Views
   module Twitter
+    BASE_URL = 'https://twitter.com'.freeze
+
     class << self
       def parse(tweet)
         hashtags, urls, user_mentions = collect_data(tweet)
@@ -60,11 +62,11 @@ module Views
       end
 
       def account_url_for(entity)
-        "<a href='https://twitter.com/#{entity.delete(Views::AT_SIGN)}'>#{entity}</a>"
+        "<a href='#{BASE_URL}/#{entity.delete(Views::AT_SIGN)}'>#{entity}</a>"
       end
 
       def hashtag_url_for(entity)
-        "<a href='https://twitter.com/hashtag/#{entity.delete(Views::HASHMARK)}'>#{entity}</a>"
+        "<a href='#{BASE_URL}/hashtag/#{entity.delete(Views::HASHMARK)}'>#{entity}</a>"
       end
 
       def external_url_for(entity)
