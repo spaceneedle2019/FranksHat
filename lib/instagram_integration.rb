@@ -1,10 +1,10 @@
 require 'net/http'
 require 'uri'
+require 'nokogiri'
 
 class InstagramIntegration
   def media
-    edges_array = response_object.graphql.user.edge_owner_to_timeline_media.edges
-    edges_array.map do |edge|
+    entry_point(response_object).map do |edge|
       item = edge.node
       OpenStruct.new(
           created_at: DateTime.strptime(item.taken_at_timestamp.to_s, '%s'),
@@ -18,11 +18,19 @@ class InstagramIntegration
 
   def response_object
     response = Net::HTTP.get_response(url)
-    JSON.parse(response.body, object_class: OpenStruct) if response.code.to_i == 200
+    if response.code.to_i == 200
+      page = Nokogiri::HTML(response.body)
+      data_string = page.css('body script')[0].text.gsub('window._sharedData = ', '').chop
+      JSON.parse(data_string, object_class: OpenStruct)
+    end
+  end
+
+  def entry_point(data)
+    data.entry_data['ProfilePage'][0].graphql.user.edge_owner_to_timeline_media.edges
   end
 
   def url
-    URI.parse("https://www.instagram.com/#{ENV['INSTAGRAM_USERNAME']}/?__a=1")
+    URI.parse("https://www.instagram.com/#{ENV['INSTAGRAM_USERNAME']}/")
   end
 
   def image_link(code, source)
