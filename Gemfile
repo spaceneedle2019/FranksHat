@@ -5,6 +5,7 @@ gem 'sinatra-logentries'
 gem 'twitter'
 gem 'tzinfo'
 gem 'puma'
+gem 'nokogiri'
 
 group :development do
   gem 'dotenv'
