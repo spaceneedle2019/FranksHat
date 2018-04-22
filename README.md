@@ -1,2 +1,2 @@
 # Frank's Hat
-Playing around with Sinatra
+This is my private weblog.
