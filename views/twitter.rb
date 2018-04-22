@@ -4,11 +4,9 @@ module Views
 
     class << self
       def parse(tweet)
-        hashtags, urls, user_mentions = collect_data(tweet)
         tweet_text = tweet.text.dup
-        generate_link!(tweet_text, hashtags) unless hashtags.count == 0
-        generate_link!(tweet_text, user_mentions) unless user_mentions.count == 0
-        generate_link!(tweet_text, urls) unless urls.count == 0
+        hashtags, urls, user_mentions = collect_data(tweet)
+        [hashtags, urls, user_mentions].each {|type| generate_link!(tweet_text, type) unless type.count == 0}
         generate_link_for_unmatched_urls!(tweet_text)
         remove_fb_hashtag!(tweet_text)
       end
