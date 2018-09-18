@@ -23,11 +23,8 @@ module Views
       end
 
       def generate_link_for_unmatched_urls!(tweet_text)
-        if tweet_text.match(Views::URL_REGEX)
-          tweet_text.gsub!(Views::URL_REGEX) {|m| " <a href='#{m.lstrip}'>#{m.lstrip}</a>"}
-        else
-          tweet_text
-        end
+        return tweet_text unless tweet_text.match(Views::URL_REGEX)
+        tweet_text.gsub!(Views::URL_REGEX) {|m| " <a href='#{m.lstrip}'>#{m.lstrip}</a>"}
       end
 
       def generate_link!(tweet_text, entities)
