@@ -13,7 +13,7 @@ module Views
       private
 
       def collect_data(tweet)
-        hashtags = tweet.hashtags.collect {|key| "#{Views::HASHMARK}#{key.text}" unless key.text == 'fb'}.compact
+        hashtags = tweet.hashtags.collect {|key| "#{Views::HASHMARK}#{key.text}"}.compact
         short_urls = tweet.urls.collect {|url| [url.url, url.display_url]} if tweet.urls.respond_to?(:each)
         user_mentions =
             if tweet.user_mentions.respond_to?(:each)
