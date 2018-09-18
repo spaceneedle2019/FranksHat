@@ -8,7 +8,6 @@ module Views
         hashtags, urls, user_mentions = collect_data(tweet)
         [hashtags, urls, user_mentions].each {|type| generate_link!(tweet_text, type) unless type.count == 0}
         generate_link_for_unmatched_urls!(tweet_text)
-        remove_fb_hashtag!(tweet_text)
       end
 
       private
@@ -21,10 +20,6 @@ module Views
               tweet.user_mentions.collect {|user_mention| "#{Views::AT_SIGN}#{user_mention.screen_name}"}
             end
         return hashtags, short_urls, user_mentions
-      end
-
-      def remove_fb_hashtag!(tweet_text)
-        tweet_text.include?('#fb') ? tweet_text.gsub!(/#fb/, '').strip : tweet_text
       end
 
       def generate_link_for_unmatched_urls!(tweet_text)
