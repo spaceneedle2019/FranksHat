@@ -1,6 +1,7 @@
 source 'http://rubygems.org'
-ruby '2.5.0'
+ruby '3.1.0'
 gem 'sinatra'
+gem 'sinatra-contrib'
 gem 'sinatra-logentries'
 gem 'twitter'
 gem 'tzinfo'
