@@ -1,7 +1,7 @@
 <div id="microblog">
   <table cellpadding="0" cellspacing="0">
     <tbody>
-    <% timeline.each do |timestamp, entry| %>
+    <% timeline&.each do |timestamp, entry| %>
         <tr>
           <td>&nbsp;</td>
           <td class="date">
@@ -18,6 +18,17 @@
           <td>&nbsp;</td>
         </tr>
     <% end %>
+      <tr>
+        <td>&nbsp;</td>
+        <td class="date">
+          <%= base.format(Time.now) %>
+        </td>
+        <td class="entry">Momentan sind leider keine Neuigkeiten verfügbar. Es lohnt hingegen ein Blick auf
+          <a href="https://twitter.com/spaceneedle2019" title="Twitter" target="_blank">Twitter</a> oder
+          <a href="https://instagram.com/spaceneedle2019" title="Instagram" target="_blank">Instagram</a>.
+        </td>
+        <td>&nbsp;</td>
+      </tr>
     </tbody>
   </table>
 </div>

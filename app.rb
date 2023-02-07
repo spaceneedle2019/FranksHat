@@ -19,7 +19,7 @@ class App < Sinatra::Base
 
   get '/' do
     erb :'templates/home.html', layout: DEFAULT_LAYOUT,
-        locals: {timeline: build_timeline, base: Views::Base, instagram: Views::Instagram, twitter: Views::Twitter}
+        locals: {timeline: nil, base: Views::Base, instagram: Views::Instagram, twitter: Views::Twitter}
   end
 
   get '/:things' do
