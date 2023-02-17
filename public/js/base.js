@@ -7,7 +7,8 @@ function randomizeHeaderImage() {
       '/images/ruhe_by_spaceneedle2019.jpg',
       '/images/sunset_at_lake_constance_by_spaceneedle2019.jpg',
       '/images/unchained_by_spaceneedle2019.jpg',
-      '/images/sands_by_spaceneedle2019.jpg'
+      '/images/sands_by_spaceneedle2019.jpg',
+      '/images/sunset_malmo_by_spaceneedle2019.jpg'
     ];
 
   var random = Math.floor(Math.random() * images.length);
